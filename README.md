@@ -20,7 +20,6 @@ This project is a runnable observability case study for a small checkout system.
 ## Run Locally Without Dynatrace
 
 ```bash
-mvn clean package
 docker compose up --build
 ```
 
@@ -163,6 +162,8 @@ curl http://localhost:8081/api/payments/stats
 ## Notes
 
 Docker is not required to understand the code, but it is the intended demo runtime. If you run the apps directly from Maven, start ActiveMQ first and set `ACTIVEMQ_BROKER_URL=tcp://localhost:61616`.
+
+The service Dockerfiles use multi-stage Maven builds, so Compose does not require locally prebuilt `target/*.jar` files. For a faster rebuild after the first Docker build, you can still run `mvn clean package` locally before using Docker.
 
 Official Dynatrace references:
 
