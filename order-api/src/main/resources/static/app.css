@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+  color: #1c2430;
+}
+
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+header {
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 34px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.product, .panel {
+  background: #ffffff;
+  border: 1px solid #d7dde8;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.product button, .checkout button {
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: #16745f;
+  color: #ffffff;
+  padding: 11px 14px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.checkout {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #c7cfdd;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.status {
+  margin-top: 18px;
+  min-height: 24px;
+}
+
+@media (max-width: 640px) {
+  .checkout {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,77 @@
+version: "3.9"
+
+services:
+  activemq:
+    image: apache/activemq-classic:5.18.3
+    container_name: obs-activemq
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
+
+  order-api:
+    build:
+      context: .
+      dockerfile: order-api/Dockerfile
+    container_name: obs-order-api
+    ports:
+      - "8080:8080"
+      - "9010:9010"
+    depends_on:
+      - activemq
+    env_file:
+      - ./dynatrace/dynatrace.env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      APP_NAME: order-api
+      ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      PAYMENT_SERVICE_URL: http://payment-service:8081
+      DT_RELEASE_PRODUCT: "Checkout Case Study"
+      DT_RELEASE_STAGE: "demo"
+      JAVA_TOOL_OPTIONS: >-
+        -Dcom.sun.management.jmxremote
+        -Dcom.sun.management.jmxremote.port=9010
+        -Dcom.sun.management.jmxremote.rmi.port=9010
+        -Dcom.sun.management.jmxremote.authenticate=false
+        -Dcom.sun.management.jmxremote.ssl=false
+        -Djava.rmi.server.hostname=localhost
+
+  payment-service:
+    build:
+      context: .
+      dockerfile: payment-service/Dockerfile
+    container_name: obs-payment-service
+    ports:
+      - "8081:8081"
+      - "9011:9011"
+    depends_on:
+      - activemq
+    env_file:
+      - ./dynatrace/dynatrace.env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      APP_NAME: payment-service
+      ACTIVEMQ_BROKER_URL: tcp://activemq:61616
+      DT_RELEASE_PRODUCT: "Checkout Case Study"
+      DT_RELEASE_STAGE: "demo"
+      JAVA_TOOL_OPTIONS: >-
+        -Dcom.sun.management.jmxremote
+        -Dcom.sun.management.jmxremote.port=9011
+        -Dcom.sun.management.jmxremote.rmi.port=9011
+        -Dcom.sun.management.jmxremote.authenticate=false
+        -Dcom.sun.management.jmxremote.ssl=false
+        -Djava.rmi.server.hostname=localhost
+
+  loadgen:
+    image: curlimages/curl:8.8.0
+    container_name: obs-loadgen
+    depends_on:
+      - order-api
+    volumes:
+      - ./loadgen:/scripts:ro
+    entrypoint: ["/bin/sh", "/scripts/loadgen.sh"]
+    environment:
+      BASE_URL: http://order-api:8080
+      SLEEP_SECONDS: 3

@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-api
+  activemq:
+    broker-url: ${ACTIVEMQ_BROKER_URL:tcp://localhost:61616}
+    user: ${ACTIVEMQ_USER:admin}
+    password: ${ACTIVEMQ_PASSWORD:admin}
+  jms:
+    template:
+      default-destination: checkout.payments
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,loggers,env
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+case-study:
+  payment-service-url: ${PAYMENT_SERVICE_URL:http://localhost:8081}
+  rum-script: ${DT_RUM_SCRIPT:}
+
+logging:
+  level:
+    com.example.observability: INFO
