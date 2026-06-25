@@ -31,6 +31,8 @@ Open:
 - ActiveMQ console: `http://localhost:8161/admin` with `admin/admin`
 - JMX ports: `localhost:9010` for `order-api`, `localhost:9011` for `payment-service`
 
+The web checkout UI includes an **Artificial Load** panel. Use it to start browser-generated traffic with a configurable request rate, duration, catalog calls, slow calls, and error calls. This is useful for demonstrating RUM, user actions, API load, trace logs, and error/latency alerts without starting a separate script.
+
 ## Dynatrace Setup
 
 Copy the example file and fill in your tenant details:
@@ -82,6 +84,7 @@ Set `DT_RUM_SCRIPT` to the Dynatrace RUM JavaScript tag. The UI injects it into 
 - checkout started
 - checkout finished
 - checkout failed
+- artificial load started, ticked, and stopped
 
 In Dynatrace, inspect user actions, load actions, JavaScript errors, session replay if enabled, and conversion/funnel-style behavior around checkout.
 

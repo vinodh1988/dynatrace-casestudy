@@ -27,6 +27,16 @@ public class PageController {
             + "<label>Quantity<input id=\"quantity\" type=\"number\" min=\"1\" value=\"1\"></label>"
             + "<button onclick=\"checkout()\">Checkout</button></section>"
             + "<p>Selected SKU: <strong id=\"selectedSku\">coffee-beans</strong></p><div id=\"status\" class=\"status\"></div>"
+            + "<section class=\"panel load-panel\"><div><h2>Artificial Load</h2><p>Generate browser traffic for checkouts, slow calls, and failures.</p></div>"
+            + "<div class=\"load-grid\"><label>Requests per minute<input id=\"loadRate\" type=\"number\" min=\"1\" max=\"120\" value=\"12\"></label>"
+            + "<label>Duration seconds<input id=\"loadDuration\" type=\"number\" min=\"5\" max=\"3600\" value=\"60\"></label>"
+            + "<label>Customer prefix<input id=\"loadCustomerPrefix\" value=\"ui-load\"></label></div>"
+            + "<div class=\"load-options\"><label><input id=\"includeCatalog\" type=\"checkbox\" checked> Catalog calls</label>"
+            + "<label><input id=\"includeSlow\" type=\"checkbox\" checked> Slow calls</label>"
+            + "<label><input id=\"includeErrors\" type=\"checkbox\"> Error calls</label></div>"
+            + "<div class=\"load-actions\"><button id=\"startLoad\" onclick=\"startLoad()\">Start load</button>"
+            + "<button id=\"stopLoad\" class=\"secondary\" onclick=\"stopLoad()\" disabled>Stop</button></div>"
+            + "<div id=\"loadStatus\" class=\"load-status\">Idle</div></section>"
             + "</main><script src=\"/app.js\"></script></body></html>";
     }
 
