@@ -1,11 +1,11 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <springProperty scope="context" name="applicationName" source="spring.application.name"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level service=order-api trace=%X{traceId:-} span=%X{spanId:-} [%thread] %logger{36} - %msg%n%ex"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <includeMdc>true</includeMdc>
-            <customFields>{"service":"${applicationName:-order-api}"}</customFields>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
