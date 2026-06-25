@@ -121,7 +121,7 @@ Spring Cloud Sleuth adds trace and span IDs to MDC. `logback-spring.xml` emits s
 - `logger`
 - `message`
 
-Use checkout calls to follow a transaction from browser/RUM to `order-api`, into JMS, and through `payment-service`. Compare correlated trace logs with normal application logs such as startup, health, and ActiveMQ connection logs.
+Use checkout calls to follow a transaction from browser/RUM to `order-api`, through checkout preparation, pricing, payment dispatch, JMS, payment authorization, fraud screening, and gateway capture in `payment-service`. Compare correlated trace logs with normal application logs such as startup, health, and ActiveMQ connection logs.
 
 ### 6. Alerts and Notifications
 

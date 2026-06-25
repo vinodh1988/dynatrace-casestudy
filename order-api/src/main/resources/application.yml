@@ -11,6 +11,9 @@ spring:
   jms:
     template:
       default-destination: checkout.payments
+  sleuth:
+    sampler:
+      probability: 1.0
 
 management:
   endpoints:

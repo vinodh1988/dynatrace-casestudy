@@ -8,6 +8,9 @@ spring:
     broker-url: ${ACTIVEMQ_BROKER_URL:tcp://localhost:61616}
     user: ${ACTIVEMQ_USER:admin}
     password: ${ACTIVEMQ_PASSWORD:admin}
+  sleuth:
+    sampler:
+      probability: 1.0
 
 management:
   endpoints:
